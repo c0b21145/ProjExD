@@ -20,5 +20,6 @@ def kaito(number,a):
         # ed = datetime.datetime.now()
         # print((ed-st).seconds)
 
-q,A = shutudai()
-kaito(q,A)
+if __name__ == "__main__":
+    q,A = shutudai()
+    kaito(q,A)
