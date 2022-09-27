@@ -4,7 +4,7 @@ import datetime
 choose_num = 0
 chipped_num = 0
 loop_Max = 0
- 
+
 def syutudai():
     choose_num = random.randint(8,12)
     chipped_num = random.randint(2,4)
