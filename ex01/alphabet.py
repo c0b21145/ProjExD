@@ -8,7 +8,10 @@ loop_Max = 0
 def syutudai():
     choose_num = random.randint(8,12)
     chipped_num = random.randint(2,4)
-    alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    # alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    alphabet = []
+    for i in range(26):
+        alphabet.append(chr(65+i))
     st = datetime.datetime.now()
     q = random.sample(alphabet,choose_num)
     a = random.sample(q,chipped_num)
