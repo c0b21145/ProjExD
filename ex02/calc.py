@@ -8,6 +8,13 @@ def button_click(event):#３問目
     # tkm.showinfo(txt,f"{txt}のボタンが押されました")
     entry.insert(tk.END,txt)
 
+def equal(event):
+    eq = entry.get()
+    ev = eval(eq)
+    entry.delete(0,tk.END)
+    entry.insert(tk.END,ev)
+
+
 root = tk.Tk()
 root.geometry("300x500")#１門目
 
@@ -32,5 +39,7 @@ for i, num in enumerate(number+kigo,0):#２問目
         button.bind("<1>", button_click)
         button.grid(row=4, column=i%3)
 
-
+button = tk.Button(root,text=f"=",font=("",30),width=4,height=2)
+button.bind("<1>",equal)
+button.grid(row=4, column=2)
 root.mainloop()
