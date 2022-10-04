@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox as tkm
 
+
 def button_click(event):#３問目
     btn = event.widget
     txt = btn["text"]
