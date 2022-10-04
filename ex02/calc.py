@@ -29,7 +29,7 @@ def back_space(event):
     txt = entry.get()
     entry.delete(len(txt)-1,tk.END)
 
-
+# 枠組みを作成する
 root = tk.Tk()
 root.geometry("400x500")#１門目
 root.protocol("WM_DELETE_WINDOW",exit)
@@ -53,14 +53,17 @@ for i, num in enumerate(number+kigo,0):#２問目
     else:
         button.grid(row=4, column=i%3)
 
+# "="ボタンの作成
 button = tk.Button(root,text=f"=",font=("",30),width=4,height=2)
 button.bind("<1>",equal)
 button.grid(row=4, column=2)
 
+# デリートボタンの作成
 button = tk.Button(root,text=f"c",font=("",30),width=4,height=2)
 button.bind("<1>",delete)
 button.grid(row=2, column=3)
 
+# バックスペースボタンの作成
 button = tk.Button(root,text=f"<=",font=("",30),width=4,height=2)
 button.bind("<1>",back_space)
 button.grid(row=1, column=3)
