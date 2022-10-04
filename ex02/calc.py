@@ -14,21 +14,23 @@ root.geometry("300x500")#１門目
 entry = tk.Entry(root,width=10,font=(", 40"),justify="right")#４問目
 entry.grid(row=0, column=0, columnspan=3)
 
-for i, num in enumerate(range(9,-1,-1),0):#２問目
+number = list(range(9,-1,-1))
+kigo = ["+"]
+for i, num in enumerate(number+kigo,0):#２問目
     button = tk.Button(root,text=f"{num}",font=("",30),width=4,height=2)
     # button.pack()
-    if num > 6:
+    if i < 3:
         button.bind("<1>", button_click)
         button.grid(row=1, column=i)
-    elif num > 3:
+    elif i < 6:
         button.bind("<1>", button_click)
         button.grid(row=2, column=i%3)
-    elif num > 0:
+    elif i < 9:
         button.bind("<1>", button_click)
         button.grid(row=3, column=i%3)
     else:
         button.bind("<1>", button_click)
-        button.grid(row=4, column=0)
+        button.grid(row=4, column=i%3)
 
 
 root.mainloop()
