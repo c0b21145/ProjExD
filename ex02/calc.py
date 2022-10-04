@@ -15,6 +15,7 @@ def equal(event):
     entry.insert(tk.END,ev)
 
 
+
 root = tk.Tk()
 root.geometry("300x500")#１門目
 
