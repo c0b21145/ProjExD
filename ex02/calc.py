@@ -20,9 +20,11 @@ def exit():# 最終確認用関数
     if check == True:
         root.destroy()
 
+# 入力された文を削除する
 def delete(event):
     entry.delete(0,tk.END)
 
+# 入力された文から一つ文字を削除する
 def back_space(event):
     txt = entry.get()
     entry.delete(len(txt)-1,tk.END)
@@ -35,7 +37,8 @@ root.protocol("WM_DELETE_WINDOW",exit)
 entry = tk.Entry(root,width=10,font=(", 40"),justify="right")#４問目
 entry.grid(row=0, column=0, columnspan=3)
 
-number = list(range(9,-1,-1))
+# ボタンの作成
+number = list(range(9,-1,-1)) #0~9の数を生成
 kigo = ["+"]
 for i, num in enumerate(number+kigo,0):#２問目
     button = tk.Button(root,text=f"{num}",font=("",30),width=4,height=2)
