@@ -11,6 +11,7 @@ def key_up(event):
     global key
     key = ""
 
+# 自分のこうかとんの動きに関する関数
 def main_proc():
     global mx, my
     global cx, cy
@@ -39,6 +40,7 @@ def main_proc():
     canv.coords("tori",cx,cy)
     root.after(100,main_proc)
 
+# 一般こうかとんを動かす関数
 def random_work():
     global ex,ey
     global ecx, ecy
@@ -65,6 +67,7 @@ def random_work():
     canv.coords("e_tori",ecx,ecy)
     root.after(1000,random_work)
 
+# qキーを押したときの動作
 def exit():
     check = tkm.askyesno(title="終わりにしますか？",message="止めるのならOKを押してください")
     if check == True:
@@ -83,17 +86,17 @@ if __name__ == "__main__":
     maze_maker.show_maze(canv,maze_data) # 迷路を表示
 
     tori_img = [f"ex03/fig/{i}.png" for i in range(10)] # こうかとんの画像のリスト
-    con = random.randint(0,9) # 画像変更時のフラグ
+    con = random.randint(0,9) # 画像をランダムで選択する
     tori = tk.PhotoImage(file=tori_img[con])            
     # tori = tk.PhotoImage(file="ex03/fig/3.png") # 画像の選択
     mx, my = 1, 1
     cx, cy = mx*100+50, my*100+50
-    canv.create_image(cx,cy,image=tori,tag="tori") # こうかとんを表示
+    canv.create_image(cx,cy,image=tori,tag="tori") # 自分のこうかとんを表示
 
     ex,ey = 4, 4
     ecx, ecy = ex*100+50, ey*100+50
     e_tori = tk.PhotoImage(file=tori_img[con])            
-    canv.create_image(cx,cy,image=e_tori,tag="e_tori") # こうかとんを表示
+    canv.create_image(cx,cy,image=e_tori,tag="e_tori") # 一般こうかとんを表示
 
     key = "" # 現在押されているキーを表す変数
 
