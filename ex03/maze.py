@@ -1,4 +1,3 @@
-from email.mime import image
 import tkinter as tk
 import tkinter.messagebox as tkm
 import maze_maker
@@ -65,8 +64,6 @@ def random_work():
     canv.coords("e_tori",ecx,ecy)
     root.after(1000,random_work)
 
-            
-
 def exit():
     check = tkm.askyesno(title="終わりにしますか？",message="止めるのならOKを押してください")
     if check == True:
@@ -84,7 +81,6 @@ if __name__ == "__main__":
     maze_data = maze_maker.make_maze(15,9)
     maze_maker.show_maze(canv,maze_data) # 迷路を表示
 
-
     tori_img = [f"ex03/fig/{i}.png" for i in range(10)] # こうかとんの画像のリスト
     con = random.randint(0,9) # 画像変更時のフラグ
     tori = tk.PhotoImage(file=tori_img[con])            
@@ -97,9 +93,6 @@ if __name__ == "__main__":
     ecx, ecy = ex*100+50, ey*100+50
     e_tori = tk.PhotoImage(file=tori_img[con])            
     canv.create_image(cx,cy,image=e_tori,tag="e_tori") # こうかとんを表示
-
-
-
 
     key = "" # 現在押されているキーを表す変数
 
