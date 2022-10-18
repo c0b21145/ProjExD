@@ -53,6 +53,7 @@ def random_work():
         ex += 1
     if maze_data[ey][ex] == 0:
         ecx, ecy = ex*100+50, ey*100+50
+    else:
         if work%4==0:
             ey += 1
         elif work%4==1:
