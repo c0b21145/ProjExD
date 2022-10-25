@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 from random import randint
+from random import choice
 
 def check_bound(obj_rct, scr_rct):
     """"
@@ -20,20 +21,33 @@ def main():
     scrn_sfc = pg.display.set_mode((1600,900))
     scrn_rct = scrn_sfc.get_rect()
     bg_sfc = pg.image.load("ex04/fig/pg_bg.jpg") # 背景
-    # bg_sfc = pg.image.load("../../Desktop/ガラクタ置き場/素材/背景/nc273656.png") # 背景
     bg_rct = bg_sfc.get_rect()
 
-    tori_sfc = pg.image.load("ex04/fig/6.png") # surface
+    tori_img = [f"ex04/fig/{i}.png" for i in range(10)] # こうかとんの立ち絵を内包するリスト
+    tori_sfc = pg.image.load(choice(tori_img)) # surface
     tori_sfc = pg.transform.rotozoom(tori_sfc,0, 2.0)
     tori_rct = tori_sfc.get_rect() # rect
     tori_rct.center = 900, 400
 
     bomb_sfc = pg.Surface((20,20))
     bomb_sfc.set_colorkey((0, 0, 0)) # 隅の黒いところを透明にする
-    pg.draw.circle(bomb_sfc, (255, 0, 0), (10, 10), 10) # 円を書く
-    bomb_rct = tori_sfc.get_rect()
+    # bomb_r, bomb_g, bomb_b = 0, 0, 0 
+    bomb_r, bomb_g, bomb_b = 1, 1, 1
+    pg.draw.circle(bomb_sfc, (bomb_r, bomb_g, bomb_b), (10, 10), 10) # 円を書く
+    bomb_rct = bomb_sfc.get_rect()
     bomb_rct.centerx, bomb_rct.centery = randint(0, scrn_rct.width), randint(0, scrn_rct.height)
     vx, vy = +1, +1
+
+    square_sfc = pg.Surface((100, 100))
+    square_sfc.set_colorkey((0, 0, 0))
+    pg.draw.polygon(square_sfc, (255, 0, 0), [(0,0),(0,100),(100,100),(100,0)])
+    square_rct = square_sfc.get_rect()
+    square_rct.centerx = randint(0, scrn_rct.width)
+    square_rct.centery = randint(0, scrn_rct.height)
+
+
+    zanki = 5
+    znk_sfc = pg.font.Font(None, 40)
 
 
     clock = pg.time.Clock()
@@ -58,17 +72,45 @@ def main():
             if key_states[pg.K_UP]:tori_rct.centery += 1
             if key_states[pg.K_DOWN]:tori_rct.centery -= 1
             
-        yoko, tate = check_bound(bomb_rct,scrn_rct)
+        yoko, tate = check_bound(bomb_rct,scrn_rct)            
         vx *= yoko
         vy *= tate
 
         bomb_rct.move_ip(vx, vy)
         scrn_sfc.blit(bomb_sfc, bomb_rct) # スクリーンに爆弾を貼り付ける
+        bomb_r, bomb_g, bomb_b = bomb_r+1, bomb_g+2, bomb_b+3
+        if bomb_r > 255: bomb_r = 1
+        if bomb_g > 255: bomb_g = 1
+        if bomb_b > 255: bomb_b = 1
+        # 点滅する爆弾は目に悪いので動作確認をする時はコメントアウトする事
+        # pg.draw.circle(bomb_sfc, (bomb_r, bomb_g, bomb_b), (10, 10), 10) # 円の色を更新する
+
+
+        txt = znk_sfc.render(f"koukaton * {zanki}", True, (0, 0, 0))
+        scrn_sfc.blit(txt, (10, 10))
 
         
+        scrn_sfc.blit(square_sfc, square_rct)
+
+        if square_rct.colliderect(bomb_rct):
+            vx *= -1
+            vy *= -1
+
+        if square_rct.colliderect(tori_rct):
+            if key_states[pg.K_LEFT]:tori_rct.centerx += 1
+            if key_states[pg.K_RIGHT]:tori_rct.centerx -= 1
+            if key_states[pg.K_UP]:tori_rct.centery += 1
+            if key_states[pg.K_DOWN]:tori_rct.centery -= 1
+
 
         if tori_rct.colliderect(bomb_rct): # ゲームオーバー判定
-            return
+            zanki -= 1
+            vx *= -1
+            vy *= -1
+            tori_sfc = pg.image.load(choice(tori_img))
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0, 2.0)
+            if zanki == 0:
+                return
         
         pg.display.update()
         clock.tick(1000)
