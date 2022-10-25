@@ -29,6 +29,7 @@ def main():
     tori_rct = tori_sfc.get_rect() # rect
     tori_rct.center = 900, 400
 
+    # 爆弾の作成
     bomb_sfc = pg.Surface((20,20))
     bomb_sfc.set_colorkey((0, 0, 0)) # 隅の黒いところを透明にする
     # bomb_r, bomb_g, bomb_b = 0, 0, 0 
@@ -38,6 +39,7 @@ def main():
     bomb_rct.centerx, bomb_rct.centery = randint(0, scrn_rct.width), randint(0, scrn_rct.height)
     vx, vy = +1, +1
 
+    # 障害物の作成
     square_sfc = pg.Surface((100, 100))
     square_sfc.set_colorkey((0, 0, 0))
     pg.draw.polygon(square_sfc, (255, 0, 0), [(0,0),(0,100),(100,100),(100,0)])
@@ -46,7 +48,7 @@ def main():
     square_rct.centery = randint(0, scrn_rct.height)
 
 
-    zanki = 5
+    zanki = 5 # 残機の初期値を設定
     znk_sfc = pg.font.Font(None, 40)
 
 
@@ -92,11 +94,11 @@ def main():
         
         scrn_sfc.blit(square_sfc, square_rct)
 
-        if square_rct.colliderect(bomb_rct):
+        if square_rct.colliderect(bomb_rct): # 障害物に爆弾が触れた時の処理
             vx *= -1
             vy *= -1
 
-        if square_rct.colliderect(tori_rct):
+        if square_rct.colliderect(tori_rct): # 障害物にこうかとんが触れた時の処理
             if key_states[pg.K_LEFT]:tori_rct.centerx += 1
             if key_states[pg.K_RIGHT]:tori_rct.centerx -= 1
             if key_states[pg.K_UP]:tori_rct.centery += 1
