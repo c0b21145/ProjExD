@@ -16,7 +16,8 @@ def main():
     tori_rct.center = 900, 400
 
     bomb_sfc = pg.Surface((20,20))
-    bomb_sfc = pg.draw.circle(bomb_sfc, (255, 0, 0), (10, 10), 10) # 縁を書く
+    bomb_sfc.set_colorkey((0, 0, 0)) # 隅の黒いところを透明にする
+    pg.draw.circle(bomb_sfc, (255, 0, 0), (10, 10), 10) # 縁を書く
     bomb_rct = tori_sfc.get_rect()
     bomb_rct.centerx, bomb_rct.centery = randint(0, scrn_rct.width), randint(0, scrn_rct.height)
 
