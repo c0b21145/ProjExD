@@ -83,7 +83,7 @@ def main():
         if bomb_g > 255: bomb_g = 1
         if bomb_b > 255: bomb_b = 1
         # 点滅する爆弾は目に悪いので動作確認をする時はコメントアウトする事
-        # pg.draw.circle(bomb_sfc, (bomb_r, bomb_g, bomb_b), (10, 10), 10) # 円の色を更新する
+        pg.draw.circle(bomb_sfc, (bomb_r, bomb_g, bomb_b), (10, 10), 10) # 円の色を更新する
 
 
         txt = znk_sfc.render(f"koukaton * {zanki}", True, (0, 0, 0))
