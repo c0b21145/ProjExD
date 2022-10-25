@@ -36,7 +36,7 @@ def main():
     bomb_r, bomb_g, bomb_b = 1, 1, 1
     pg.draw.circle(bomb_sfc, (bomb_r, bomb_g, bomb_b), (10, 10), 10) # 円を書く
     bomb_rct = bomb_sfc.get_rect()
-    bomb_rct.centerx, bomb_rct.centery = randint(0, scrn_rct.width), randint(0, scrn_rct.height)
+    bomb_rct.centerx, bomb_rct.centery = randint(1000, scrn_rct.width), randint(500, scrn_rct.height)
     vx, vy = +1, +1
 
     # 障害物の作成
