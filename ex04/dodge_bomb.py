@@ -23,7 +23,12 @@ def main():
             if event.type == pg.QUIT:
                 return
 
-        scrn_sfc.blit(tori_sfc, tori_rct) # スクリーンにこうかとんを貼り付ける        
+        scrn_sfc.blit(tori_sfc, tori_rct) # スクリーンにこうかとんを貼り付ける
+        key_states = pg.key.get_pressed()
+        if key_states[pg.K_UP]: tori_rct.centery -= 1 # こうかとんを上に移動
+        if key_states[pg.K_DOWN]: tori_rct.centery += 1 # こうかとんを下に移動
+        if key_states[pg.K_LEFT]: tori_rct.centerx -= 1 # こうかとんを左に移動
+        if key_states[pg.K_RIGHT]: tori_rct.centerx += 1 # こうかとんを右に移動
 
         pg.display.update()
         clock.tick(1000)
