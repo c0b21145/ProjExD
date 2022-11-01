@@ -16,6 +16,7 @@ def check_bound(obj_rct, scr_rct):
     return yoko, tate
 
 
+# スクリーンに関するクラス
 class Screen:
     
     def __init__(self, title, xytpl, bgimg):
@@ -29,6 +30,7 @@ class Screen:
         self.sfc.blit(self.bgi_sfc, self.bgi_rct)
 
 
+# こうかとんに関するクラス
 class Bird:
 
     key_delta = {
@@ -60,6 +62,7 @@ class Bird:
         self.blit(scr)
 
 
+# 爆弾に関するクラス
 class Bomb:
     
     def __init__(self, color, radius, vxy, scr:Screen):
