@@ -82,6 +82,7 @@ class Bomb:
         self.blit(scr)
 
 
+# こうかとんから出される球に関するクラス
 class Shot:
 
     def __init__(self, color, radius, vy, scr:Bird):
@@ -111,6 +112,7 @@ class Shot:
         self.rct.centery = scr.rct.centery
         
 
+# 残機に関するクラス
 class Zanki:
 
     def __init__(self, zanki:int):
