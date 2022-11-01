@@ -137,8 +137,10 @@ def main():
     # 爆弾を作成
     bkd = Bomb((255, 0, 0), 10, (+1, +1), scr)
 
+    # 球を作成
     sht = Shot((0,255,0), 40, -1, kkt)
 
+    # 残機を設定
     znk = Zanki(5)
     
     clock = pg.time.Clock() # 練習1
@@ -165,10 +167,9 @@ def main():
         else:
             sht.update(scr)
     
-        if sht.rct.colliderect(bkd.rct):
+        if sht.rct.colliderect(bkd.rct): # 球rctが爆弾rctと重なったら
             sht.flag = False
 
-        # 練習8
         if kkt.rct.colliderect(bkd.rct): # こうかとんrctが爆弾rctと重なったら
             znk.zanki -= 1
             znk.hit(bkd)
