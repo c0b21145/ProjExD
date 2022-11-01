@@ -67,8 +67,8 @@ class Bomb:
         self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
         pg.draw.circle(self.sfc, color, (radius, radius), radius) # 爆弾用の円を描く
         self.rct = self.sfc.get_rect()
-        self.rct.centerx = randint(0, scr.rct.width)
-        self.rct.centery = randint(0, scr.rct.height)
+        self.rct.centerx = randint(1000, scr.rct.width)
+        self.rct.centery = randint(500, scr.rct.height)
         self.vx, self.vy = vxy
     
     def blit(self, scr:Screen):
