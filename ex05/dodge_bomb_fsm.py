@@ -93,37 +93,17 @@ class Bomb:
 def main():
     # スクリーンを作成
     scr = Screen("逃げろ！こうかとん", (1600, 900),"ex05/fig/pg_bg.jpg")
-    # 練習1
-    # pg.display.set_caption("逃げろ！こうかとん")
-    # scrn_sfc = pg.display.set_mode((1600, 900))
-    # scrn_rct = scrn_sfc.get_rect()
-    # bg_sfc = pg.image.load("fig/pg_bg.jpg")
-    # bg_rct = bg_sfc.get_rect()
-
+    
     # こうかとんを作成
     kkt = Bird("ex05/fig/6.png", 2.0, (900, 400))
-    # 練習3
-    # tori_sfc = pg.image.load("fig/6.png")
-    # tori_sfc = pg.transform.rotozoom(tori_sfc, 0, 2.0)
-    # tori_rct = tori_sfc.get_rect()
-    # tori_rct.center = 900, 400
-
+    
     # 爆弾を作成
     bkd = Bomb((255, 0, 0), 10, (+1, +1), scr)
-    # 練習5
-    # bomb_sfc = pg.Surface((20, 20)) # 空のSurface
-    # bomb_sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
-    # pg.draw.circle(bomb_sfc, (255, 0, 0), (10, 10), 10) # 爆弾用の円を描く
-    # bomb_rct = bomb_sfc.get_rect()
-    # bomb_rct.centerx = randint(0, scrn_rct.width)
-    # bomb_rct.centery = randint(0, scrn_rct.height)
-    # vx, vy = +1, +1 # 練習6
-
+    
     clock = pg.time.Clock() # 練習1
     while True:
         # 背景の作成
         scr.blit()
-        # scrn_sfc.blit(bg_sfc, bg_rct) # 練習2
         
         for event in pg.event.get(): # 練習2
             if event.type == pg.QUIT:
@@ -131,26 +111,10 @@ def main():
 
         # こうかとんの座標を更新
         kkt.update(scr)
-        # key_states = pg.key.get_pressed()
-        # for key, delta in key_delta.items():
-        #     if key_states[key]:
-        #         tori_rct.centerx += delta[0]
-        #         tori_rct.centery += delta[1]
-        #         # 練習7
-        #         if check_bound(tori_rct, scrn_rct) != (+1, +1):
-        #             tori_rct.centerx -= delta[0]
-        #             tori_rct.centery -= delta[1]
-        # scrn_sfc.blit(tori_sfc, tori_rct) # 練習3
-
+    
         # 爆弾の更新
         bkd.update(scr)
-        # 練習7
-        # yoko, tate = check_bound(bomb_rct, scrn_rct)
-        # vx *= yoko
-        # vy *= tate
-        # bomb_rct.move_ip(vx, vy) # 練習6
-        # scrn_sfc.blit(bomb_sfc, bomb_rct) # 練習5
-
+    
         # 練習8
         if kkt.rct.colliderect(bkd.rct): # こうかとんrctが爆弾rctと重なったら
             return
