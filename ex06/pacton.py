@@ -125,13 +125,12 @@ class Food:
 
 
 
-
 def main():
     maze = Maze(16,9)
 
     scr = Screen("Pacton", (1600, 900), maze.maze_lst)
 
-    kkt = Bird("ex06/fig/6.png", 2.0, (900, 400))
+    kkt = Bird("C:/Users/C0B21013/Documents/ProjExD2022/ProjExd-1/fig/6.png", 2.0, (900, 400))
     # food_lst = copy.deepcopy(maze.maze_lst)
     # for y in range(len(maze.maze_lst)):
     #     for x in range(len(maze.maze_lst[y])):
