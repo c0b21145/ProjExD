@@ -264,6 +264,19 @@ def main():
             pg.display.update()
         #ここまで加藤結衣
 
+        # 関友斗
+        #以下ゲームオーバー画面
+        gameover_key = pg.key.get_pressed()
+        if gameover_key[pg.K_g] == True
+            scr.sfc.fill((0,0,0)) #画面の色を黒にする 
+            fonto = pg.font.Font(None, 200) #Game Overを表示
+            moji = "Game Over"
+            txt = fonto.render(str(moji),True,(255,0,0))
+            scr.sfc.blit(txt, (400,450))
+
+            pg.display.update()
+            clock.tick(0.5)
+            return
 
         pg.display.update() #練習2
         clock.tick(1000)    
