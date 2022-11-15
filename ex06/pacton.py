@@ -187,8 +187,8 @@ class Maze:
                 self.maze_lst[y][x] = 1
         for y in range(2, tate-2, 2):
             for x in range(2, yoko-2, 2):
-                if x > 2: rnd = random.randint(0, 2)
-                else:     rnd = random.randint(0, 3)
+                if x > 2: rnd = randint(0, 2)
+                else:     rnd = randint(0, 3)
                 self.maze_lst[y+YP[rnd]][x+XP[rnd]] = 1
 
 """
