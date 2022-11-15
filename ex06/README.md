@@ -15,3 +15,6 @@
 - ワープ通路の設定
 - 追尾する敵
 - キーを押す以外のゲームオーバー条件の追加
+
+### 参考サイト
+- 「Pygameで迷路内を移動するプログラムを作ろう」https://mulberrytassel.com/python-practice-pygame-5/
