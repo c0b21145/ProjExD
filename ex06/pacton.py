@@ -4,9 +4,9 @@ import random
 from random import randint #加藤結衣
 import copy
 
-#追加1
+#ここから飯田優太
 WINDOW = (1600, 900)
-MAP=[ #ステージ通路設定 １は壁０は通路
+MAP=[ #ステージ通路設定 １は壁、０は通路、２はエサ
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,2,2,2,2,2,2,0,0,2,2,2,2,2,2,1],
     [1,2,1,1,1,1,1,0,0,1,1,1,1,1,2,1],
@@ -17,10 +17,10 @@ MAP=[ #ステージ通路設定 １は壁０は通路
     [1,2,2,2,2,2,2,0,0,2,2,2,2,2,2,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
-#追加1
+#ここまで飯田優太
 
 
-# スクリーンに関するクラス　追加
+# スクリーンに関するクラス
 class Screen:
     def __init__(self, title, xytpl):
         #color = ["white", "gray"]
@@ -28,7 +28,8 @@ class Screen:
         pg.display.set_caption(title)
         self.sfc = pg.display.set_mode(xytpl)
         self.rct = self.sfc.get_rect()
-#追加
+#ここから飯田優太
+#壁作成
     def map_draw(self,map):
         x=0
         y=0
@@ -46,7 +47,8 @@ class Screen:
             else:
                 x=0
                 y+=1
-#追加
+#ここまで飯田優太
+
         # self.bgi_sfc = pg.image.load("ex05/fig/pg_bg.jpg")
         # self.bgi_rct = self.bgi_sfc.get_rect()
         #self.rct_lst = []
@@ -248,7 +250,7 @@ def main():
 
     clock = pg.time.Clock()
     while True:
-        scr.map_draw(MAP)
+        scr.map_draw(MAP) #迷路生成 飯田優太
         scr.blit() # 背景の作成
         kkt.update(scr)
         # for y in range(len(food_lst)):
