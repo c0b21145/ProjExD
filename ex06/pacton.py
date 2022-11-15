@@ -4,7 +4,6 @@ import random
 from random import randint #加藤結衣
 import copy
 
-
 #追加1
 WINDOW = (1600, 900)
 MAP=[ #ステージ通路設定 １は壁０は通路
