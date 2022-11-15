@@ -36,7 +36,8 @@ class Screen:
         for i in map:
             for j in i:
                 if j == 2:
-                    self.wall=pg.draw.circle(self.sfc,(250,250,0),(x*100+50,y*100+50),10)
+                    # self.wall=pg.draw.circle(self.sfc,(250,250,0),(x*100+50,y*100+50),10)
+                    pg.draw.rect(self.sfc,(0,0,0),(x*100,y*100,100,100),0)
                 if j == 1:
                     self.wall=pg.draw.rect(self.sfc,(100,100,120),(x*100,y*100,100,100),0)
                 if j == 0:
