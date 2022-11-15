@@ -70,11 +70,11 @@ class Screen:
         #    for sfc_lst, rct_lst in sub:
         #        # print(sfc_lst, rct_lst)
         self.sfc.blit(self.sfc, self.rct) 
-        print(len(self.rct_lst))
-        for sub in self.rct_lst:
-            for sfc_lst, rct_lst in sub:
-                # print(sfc_lst, rct_lst)
-                self.sfc.blit(sfc_lst,rct_lst)
+        # print(len(self.rct_lst))
+        # for sub in self.rct_lst:
+        #     for sfc_lst, rct_lst in sub:
+        #         # print(sfc_lst, rct_lst)
+        #         self.sfc.blit(sfc_lst,rct_lst)
     
 #ここから加藤結衣    
 # ドット作成クラス
@@ -217,7 +217,8 @@ def main():
 
     scr = Screen("Pacton", (1600, 900))
 
-    kkt = Bird("C:/Users/C0B21013/Documents/ProjExD2022/ProjExd-1/fig/6.png", 2.0, (800, 400))
+    # kkt = Bird("C:/Users/C0B21013/Documents/ProjExD2022/ProjExd-1/fig/6.png", 2.0, (800, 400))
+    kkt = Bird("ex06/fig/6.png",2.0,(800, 400))
     # food_lst = copy.deepcopy(maze.maze_lst)
     # for y in range(len(maze.maze_lst)):
     #     for x in range(len(maze.maze_lst[y])):
@@ -323,7 +324,7 @@ def main():
         # 関友斗
         #以下ゲームオーバー画面
         gameover_key = pg.key.get_pressed()
-        if gameover_key[pg.K_g] == True
+        if gameover_key[pg.K_g] == True:
             scr.sfc.fill((0,0,0)) #画面の色を黒にする 
             fonto = pg.font.Font(None, 200) #Game Overを表示
             moji = "Game Over"
