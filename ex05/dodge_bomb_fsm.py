@@ -99,6 +99,8 @@ def main():
     
     # 爆弾を作成
     bkd = Bomb((255, 0, 0), 10, (+1, +1), scr)
+
+    bkd2 = Bomb((255, 0, 0), 10, (+1, +1), scr)
     
     clock = pg.time.Clock() # 練習1
     while True:
@@ -114,6 +116,7 @@ def main():
     
         # 爆弾の更新
         bkd.update(scr)
+        bkd2.update(scr)
     
         # 練習8
         if kkt.rct.colliderect(bkd.rct): # こうかとんrctが爆弾rctと重なったら
