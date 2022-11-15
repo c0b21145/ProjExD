@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import random
+from random import randint #加藤結衣
 import copy
 
 
@@ -18,7 +19,6 @@ MAP=[ #ステージ通路設定 １は壁０は通路
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 #追加1
-
 
 
 # スクリーンに関するクラス　追加
@@ -47,8 +47,6 @@ class Screen:
                 x=0
                 y+=1
 #追加
-
-
         # self.bgi_sfc = pg.image.load("ex05/fig/pg_bg.jpg")
         # self.bgi_rct = self.bgi_sfc.get_rect()
         #self.rct_lst = []
@@ -72,7 +70,36 @@ class Screen:
         #    for sfc_lst, rct_lst in sub:
         #        # print(sfc_lst, rct_lst)
         self.sfc.blit(self.sfc, self.rct) 
+        print(len(self.rct_lst))
+        for sub in self.rct_lst:
+            for sfc_lst, rct_lst in sub:
+                # print(sfc_lst, rct_lst)
+                self.sfc.blit(sfc_lst,rct_lst)
+    
+#ここから加藤結衣    
+# ドット作成クラス
+class Dotto:
+    def __init__(self, color, radius, scr:Screen):
+        self.sfc = pg.Surface((radius*2, radius*2))
+        self.sfc.set_colorkey((0, 0, 0))
+        pg.draw.circle(self.sfc, color, (radius, radius), radius)
+        self.rct = self.sfc.get_rect()
+        self.rct.centerx = randint(10, scr.rct.width-10)
+        self.rct.centery = randint(10, scr.rct.height-10)
+    
+    def blit(self, scr:Screen):
+        scr.sfc.blit(self.sfc, self.rct)
 
+    def update(self, scr:Screen):
+        self.blit(scr)
+
+ 
+# こうかとんがドットを食べるクラス
+class Eat:
+    def __init__(self, color, dot:Dotto, scr:Screen):
+        pg.draw.circle(dot.sfc, color, (5, 5), 5)
+        # ドットの色を黒にして、食べたようにみせる
+#ここまで加藤結衣
 
 
 # こうかとんに関するクラス
@@ -103,7 +130,26 @@ class Bird:
                 
         self.blit(scr)
 
-"""
+
+
+#ここから加藤結衣
+# スコアを表示するクラス 
+class Score:
+    def __init__(self, x, y):
+        self.font = pg.font.SysFont(None, 40)
+        self.score = 0
+        (self.x, self.y) = (x, y)
+
+    def draw(self, scr:Screen):
+        text = self.font.render("SCORE:"+str(self.score), True, (255, 255, 255))
+        scr.sfc.blit(text, (self.x, self.y))
+    
+    def add_score(self, x):
+        self.score += x
+#ここまで加藤結衣
+
+
+
 # 迷路に関するクラス
 class Maze:
     # 迷路を作成する関数 第3回から引用
@@ -127,6 +173,7 @@ class Maze:
                 if x > 2: rnd = random.randint(0, 2)
                 else:     rnd = random.randint(0, 3)
                 self.maze_lst[y+YP[rnd]][x+XP[rnd]] = 1
+
 """
 
     # 迷路を表示する関数 第3回から引用
@@ -137,7 +184,7 @@ class Maze:
 
     #             pg.draw(x*100, y*100, x*100+100, y*100+100, 
     #                                     fill=color[maze_lst[y][x]])
-
+"""
 
 # 道に落ちている食べ物に関するクラス
 class Food:
@@ -165,7 +212,6 @@ class Food:
         self.sfc.set_colorkey(color)
 
 
-
 def main():
     #maze = Maze(16,9)
 
@@ -184,6 +230,21 @@ def main():
     #     for x in range(len(food_lst[y])):
     #         print(food_lst[y][x].flag)
     
+    #ここから加藤結衣
+    #赤色のドットを作成
+    dot1 = Dotto((255, 0, 0), 5, scr)
+    dot2 = Dotto((255, 0, 0), 5, scr)
+    dot3 = Dotto((255, 0, 0), 5, scr)
+    dot4 = Dotto((255, 0, 0), 5, scr)
+    dot5 = Dotto((255, 0, 0), 5, scr)
+    dot6 = Dotto((255, 0, 0), 5, scr)
+    dot7 = Dotto((255, 0, 0), 5, scr)
+    dot8 = Dotto((255, 0, 0), 5, scr)
+    dot9 = Dotto((255, 0, 0), 5, scr)
+
+    score = Score(10, 10)
+    #ここまで加藤結衣
+
     clock = pg.time.Clock()
     while True:
         scr.map_draw(MAP)
@@ -197,6 +258,81 @@ def main():
             if event.type == pg.QUIT:
                 return
 
+        #ここから加藤結衣
+        #ドットを作成、スコアを表示
+        dot1.update(scr)
+        dot2.update(scr)
+        dot3.update(scr)
+        dot4.update(scr)
+        dot5.update(scr)
+        dot6.update(scr)
+        dot7.update(scr)
+        dot8.update(scr)
+        dot9.update(scr)
+        score.draw(scr) 
+
+        # こうかとんがドットと重なったら　
+        if kkt.rct.colliderect(dot1.rct):
+            # ドットを食べる(消す)
+            Eat((0, 0, 0), dot1, scr)
+            # スコアを1足す
+            score.score += 1
+            pg.display.update()
+        
+        if kkt.rct.colliderect(dot2.rct):
+            Eat((0, 0, 0), dot2, scr)
+            score.score += 1
+            pg.display.update()
+
+        if kkt.rct.colliderect(dot3.rct):
+            Eat((0, 0, 0), dot3, scr)
+            score.score += 1
+            pg.display.update()
+
+        if kkt.rct.colliderect(dot4.rct):
+            Eat((0, 0, 0), dot4, scr)
+            score.score += 1
+            pg.display.update()
+
+        if kkt.rct.colliderect(dot5.rct):
+            Eat((0, 0, 0), dot5, scr)
+            score.score += 1
+            pg.display.update()
+
+        if kkt.rct.colliderect(dot6.rct):
+            Eat((0, 0, 0), dot6, scr)
+            score.score += 1
+            pg.display.update()
+
+        if kkt.rct.colliderect(dot7.rct):
+            Eat((0, 0, 0), dot7, scr)
+            score.score += 1
+            pg.display.update()
+
+        if kkt.rct.colliderect(dot8.rct):
+            Eat((0, 0, 0), dot8, scr)
+            score.score += 1
+            pg.display.update()
+        
+        if kkt.rct.colliderect(dot9.rct):
+            Eat((0, 0, 0), dot9, scr)
+            score.score += 1
+            pg.display.update()
+        #ここまで加藤結衣
+
+        # 関友斗
+        #以下ゲームオーバー画面
+        gameover_key = pg.key.get_pressed()
+        if gameover_key[pg.K_g] == True
+            scr.sfc.fill((0,0,0)) #画面の色を黒にする 
+            fonto = pg.font.Font(None, 200) #Game Overを表示
+            moji = "Game Over"
+            txt = fonto.render(str(moji),True,(255,0,0))
+            scr.sfc.blit(txt, (400,450))
+
+            pg.display.update()
+            clock.tick(0.5)
+            return
 
         pg.display.update() #練習2
         clock.tick(1000)    
