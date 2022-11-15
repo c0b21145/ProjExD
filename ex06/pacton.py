@@ -129,15 +129,6 @@ class Maze:
                 else:     rnd = random.randint(0, 3)
                 self.maze_lst[y+YP[rnd]][x+XP[rnd]] = 1
 
-
-    # 迷路を表示する関数 第3回から引用
-    # def show_maze(self, maze_lst):
-    #     color = ["white", "gray"]
-    #     for y in range(len(maze_lst)):
-    #         for x in range(len(maze_lst[y])):
-
-    #             pg.draw(x*100, y*100, x*100+100, y*100+100, 
-    #                                     fill=color[maze_lst[y][x]])
    
 
 # 道に落ちている食べ物に関するクラス
