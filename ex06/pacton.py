@@ -1,8 +1,6 @@
 import pygame as pg
 import sys
-import random
 from random import randint #加藤結衣
-import copy
 
 #ここから飯田優太
 WINDOW = (1600, 900)
