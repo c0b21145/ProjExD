@@ -77,6 +77,24 @@ class Screen:
         #     for sfc_lst, rct_lst in sub:
         #         # print(sfc_lst, rct_lst)
         #         self.sfc.blit(sfc_lst,rct_lst)
+
+
+class Item:#金井
+#アイテムに関するクラス
+
+    def __init__(self, colour, radius,  scr):
+        self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
+        self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
+        pg.draw.circle(self.sfc, colour, (radius, radius), radius) # アイテム用の円を描く
+        self.rct = self.sfc.get_rect()
+        self.rct.centerx = randint(200, scr.rct.width-200)
+        self.rct.centery = randint(200, scr.rct.height-200)
+        self.on = True
+
+    #アイテムを貼り付けるインスタンスメソッド
+    def blit(self, scr):
+        scr.sfc.blit(self.sfc, self.rct)
+
     
 #ここから加藤結衣    
 # ドット作成クラス
@@ -102,7 +120,6 @@ class Eat:
         pg.draw.circle(dot.sfc, color, (5, 5), 5)
         # ドットの色を黒にして、食べたようにみせる
 #ここまで加藤結衣
-
 
 # こうかとんに関するクラス
 class Bird:
@@ -232,6 +249,8 @@ def main():
     # for y in range(len(food_lst)):
     #     for x in range(len(food_lst[y])):
     #         print(food_lst[y][x].flag)
+
+    item = Item((255, 255, 0), 10, scr)#金井
     
     #ここから加藤結衣
     #赤色のドットを作成
@@ -260,6 +279,14 @@ def main():
         for event in pg.event.get(): # 練習2
             if event.type == pg.QUIT:
                 return
+
+        if item.on:#金井
+            #アイテムが回収されていないなら描画する
+            item.blit(scr)
+
+        if kkt.rct.colliderect(item.rct):#金井
+            #アイテムを回収する機能
+            item = Item((255, 255, 0), 10, scr)
 
         #ここから加藤結衣
         #ドットを作成、スコアを表示
