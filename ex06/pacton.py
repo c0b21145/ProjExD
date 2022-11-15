@@ -4,9 +4,9 @@ import random
 from random import randint #加藤結衣
 import copy
 
-#追加1
+#ここから飯田優太
 WINDOW = (1600, 900)
-MAP=[ #ステージ通路設定 １は壁０は通路
+MAP=[ #ステージ通路設定 １は壁、０は通路、２はエサ
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,2,2,2,2,2,2,0,0,2,2,2,2,2,2,1],
     [1,2,1,1,1,1,1,0,0,1,1,1,1,1,2,1],
@@ -17,10 +17,10 @@ MAP=[ #ステージ通路設定 １は壁０は通路
     [1,2,2,2,2,2,2,0,0,2,2,2,2,2,2,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
-#追加1
+#ここまで飯田優太
 
 
-# スクリーンに関するクラス　追加
+# スクリーンに関するクラス
 class Screen:
     def __init__(self, title, xytpl):
         #color = ["white", "gray"]
@@ -28,7 +28,8 @@ class Screen:
         pg.display.set_caption(title)
         self.sfc = pg.display.set_mode(xytpl)
         self.rct = self.sfc.get_rect()
-#追加
+#ここから飯田優太
+#壁作成
     def map_draw(self,map):
         x=0
         y=0
@@ -46,7 +47,8 @@ class Screen:
             else:
                 x=0
                 y+=1
-#追加
+#ここまで飯田優太
+
         # self.bgi_sfc = pg.image.load("ex05/fig/pg_bg.jpg")
         # self.bgi_rct = self.bgi_sfc.get_rect()
         #self.rct_lst = []
@@ -77,33 +79,33 @@ class Screen:
         #         self.sfc.blit(sfc_lst,rct_lst)
 
 
-class Item:#金井
-#アイテムに関するクラス
+# class Item:#金井
+# #アイテムに関するクラス
 
-    def __init__(self, colour, radius,  scr):
-        self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
-        self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
-        pg.draw.circle(self.sfc, colour, (radius, radius), radius) # アイテム用の円を描く
-        self.rct = self.sfc.get_rect()
-        self.rct.centerx = randint(200, scr.rct.width-200)
-        self.rct.centery = randint(200, scr.rct.height-200)
-        self.on = True
+#     def __init__(self, colour, radius,  scr):
+#         self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
+#         self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
+#         pg.draw.circle(self.sfc, colour, (radius, radius), radius) # アイテム用の円を描く
+#         self.rct = self.sfc.get_rect()
+#         self.rct.centerx = randint(200, scr.rct.width-200)
+#         self.rct.centery = randint(200, scr.rct.height-200)
+#         self.on = True
 
-    #アイテムを貼り付けるインスタンスメソッド
-    def blit(self, scr):
-        scr.sfc.blit(self.sfc, self.rct)
+#     #アイテムを貼り付けるインスタンスメソッド
+#     def blit(self, scr):
+#         scr.sfc.blit(self.sfc, self.rct)
 
     
 #ここから加藤結衣    
 # ドット作成クラス
 class Dotto:
-    def __init__(self, color, radius, scr:Screen):
+    def __init__(self, color, radius, x, y):
         self.sfc = pg.Surface((radius*2, radius*2))
         self.sfc.set_colorkey((0, 0, 0))
         pg.draw.circle(self.sfc, color, (radius, radius), radius)
         self.rct = self.sfc.get_rect()
-        self.rct.centerx = randint(10, scr.rct.width-10)
-        self.rct.centery = randint(10, scr.rct.height-10)
+        self.rct.centerx = x
+        self.rct.centery = y
     
     def blit(self, scr:Screen):
         scr.sfc.blit(self.sfc, self.rct)
@@ -192,13 +194,11 @@ class Maze:
                 self.maze_lst[y+YP[rnd]][x+XP[rnd]] = 1
 
 """
-
     # 迷路を表示する関数 第3回から引用
     # def show_maze(self, maze_lst):
     #     color = ["white", "gray"]
     #     for y in range(len(maze_lst)):
     #         for x in range(len(maze_lst[y])):
-
     #             pg.draw(x*100, y*100, x*100+100, y*100+100, 
     #                                     fill=color[maze_lst[y][x]])
 """
@@ -235,7 +235,7 @@ def main():
     scr = Screen("Pacton", (1600, 900))
 
     # kkt = Bird("C:/Users/C0B21013/Documents/ProjExD2022/ProjExd-1/fig/6.png", 2.0, (800, 400))
-    kkt = Bird("ex06/fig/6.png",2.0,(800, 400))
+    kkt = Bird("fig/6.png",2.0,(800, 400))
     # food_lst = copy.deepcopy(maze.maze_lst)
     # for y in range(len(maze.maze_lst)):
     #     for x in range(len(maze.maze_lst[y])):
@@ -248,26 +248,26 @@ def main():
     #     for x in range(len(food_lst[y])):
     #         print(food_lst[y][x].flag)
 
-    item = Item((255, 255, 0), 10, scr)#金井
+    # item = Item((255, 255, 0), 10, scr)#金井
     
     #ここから加藤結衣
     #赤色のドットを作成
-    dot1 = Dotto((255, 0, 0), 5, scr)
-    dot2 = Dotto((255, 0, 0), 5, scr)
-    dot3 = Dotto((255, 0, 0), 5, scr)
-    dot4 = Dotto((255, 0, 0), 5, scr)
-    dot5 = Dotto((255, 0, 0), 5, scr)
-    dot6 = Dotto((255, 0, 0), 5, scr)
-    dot7 = Dotto((255, 0, 0), 5, scr)
-    dot8 = Dotto((255, 0, 0), 5, scr)
-    dot9 = Dotto((255, 0, 0), 5, scr)
+    dot1 = Dotto((255, 0, 0), 5, 100, 100)
+    dot2 = Dotto((255, 0, 0), 5, 100, 250)
+    dot3 = Dotto((255, 0, 0), 5, 100, 400)
+    dot4 = Dotto((255, 0, 0), 5, 100, 550)
+    dot5 = Dotto((255, 0, 0), 5, 250, 100)
+    dot6 = Dotto((255, 0, 0), 5, 400, 100)
+    dot7 = Dotto((255, 0, 0), 5, 550, 100)
+    dot8 = Dotto((255, 0, 0), 5, 250, 300)
+    dot9 = Dotto((255, 0, 0), 5, 400, 400)
 
     score = Score(10, 10)
     #ここまで加藤結衣
 
     clock = pg.time.Clock()
     while True:
-        scr.map_draw(MAP)
+        scr.map_draw(MAP) #迷路生成 飯田優太
         scr.blit() # 背景の作成
         kkt.update(scr)
         # for y in range(len(food_lst)):
@@ -278,13 +278,13 @@ def main():
             if event.type == pg.QUIT:
                 return
 
-        if item.on:#金井
-            #アイテムが回収されていないなら描画する
-            item.blit(scr)
+        # if item.on:#金井
+        #     #アイテムが回収されていないなら描画する
+        #     item.blit(scr)
 
-        if kkt.rct.colliderect(item.rct):#金井
-            #アイテムを回収する機能
-            item = Item((255, 255, 0), 10, scr)
+        # if kkt.rct.colliderect(item.rct):#金井
+        #     #アイテムを回収する機能
+        #     item = Item((255, 255, 0), 10, scr)
 
         #ここから加藤結衣
         #ドットを作成、スコアを表示
@@ -303,47 +303,56 @@ def main():
         if kkt.rct.colliderect(dot1.rct):
             # ドットを食べる(消す)
             Eat((0, 0, 0), dot1, scr)
+            dot1 = Dotto((255, 0, 0), 5, 1000, 1000)
             # スコアを1足す
             score.score += 1
             pg.display.update()
         
         if kkt.rct.colliderect(dot2.rct):
             Eat((0, 0, 0), dot2, scr)
+            dot2 = Dotto((255, 0, 0), 5, 1000, 1000)
             score.score += 1
             pg.display.update()
 
         if kkt.rct.colliderect(dot3.rct):
             Eat((0, 0, 0), dot3, scr)
+            dot3 = Dotto((255, 0, 0), 5, 1000, 1000)
             score.score += 1
             pg.display.update()
 
         if kkt.rct.colliderect(dot4.rct):
             Eat((0, 0, 0), dot4, scr)
+            dot4 = Dotto((255, 0, 0), 5, 1000, 1000)
             score.score += 1
             pg.display.update()
 
         if kkt.rct.colliderect(dot5.rct):
             Eat((0, 0, 0), dot5, scr)
+            dot5 = Dotto((255, 0, 0), 5, 1000, 1000)
             score.score += 1
             pg.display.update()
 
         if kkt.rct.colliderect(dot6.rct):
             Eat((0, 0, 0), dot6, scr)
+            dot6 = Dotto((255, 0, 0), 5, 1000, 1000)
             score.score += 1
             pg.display.update()
 
         if kkt.rct.colliderect(dot7.rct):
             Eat((0, 0, 0), dot7, scr)
+            dot7 = Dotto((255, 0, 0), 5, 1000, 1000)
             score.score += 1
             pg.display.update()
 
         if kkt.rct.colliderect(dot8.rct):
             Eat((0, 0, 0), dot8, scr)
+            dot8 = Dotto((255, 0, 0), 5, 1000, 1000)
             score.score += 1
             pg.display.update()
         
         if kkt.rct.colliderect(dot9.rct):
             Eat((0, 0, 0), dot9, scr)
+            dot9 = Dotto((255, 0, 0), 5, 1000, 1000)
             score.score += 1
             pg.display.update()
         #ここまで加藤結衣
