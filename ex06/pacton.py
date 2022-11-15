@@ -3,37 +3,77 @@ import sys
 import random
 import copy
 
-# スクリーンに関するクラス
+
+#追加1
+WINDOW = (1600, 900)
+MAP=[ #ステージ通路設定 １は壁０は通路
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,2,2,2,2,2,2,0,0,2,2,2,2,2,2,1],
+    [1,2,1,1,1,1,1,0,0,1,1,1,1,1,2,1],
+    [1,2,2,2,2,2,1,0,0,1,2,2,2,2,2,1],
+    [1,1,1,1,1,2,1,0,0,1,2,1,1,1,1,1],
+    [1,2,2,2,2,2,1,0,0,1,2,2,2,2,2,1],
+    [1,2,1,1,1,1,1,0,0,1,1,1,1,1,2,1],
+    [1,2,2,2,2,2,2,0,0,2,2,2,2,2,2,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+]
+#追加1
+
+
+
+# スクリーンに関するクラス　追加
 class Screen:
-    def __init__(self, title, xytpl, maze_lst):
-        color = ["white", "gray"]
+    def __init__(self, title, xytpl):
+        #color = ["white", "gray"]
+
         pg.display.set_caption(title)
         self.sfc = pg.display.set_mode(xytpl)
-        # self.rct = self.sfc.get_rect()
+        self.rct = self.sfc.get_rect()
+#追加
+    def map_draw(self,map):
+        x=0
+        y=0
+        self.sfc.fill((0,0,0))
+        for i in map:
+            for j in i:
+                if j == 2:
+                    self.wall=pg.draw.circle(self.sfc,(250,250,0),(x*100+50,y*100+50),10)
+                if j == 1:
+                    self.wall=pg.draw.rect(self.sfc,(100,100,120),(x*100,y*100,100,100),0)
+                if j == 0:
+                    pg.draw.rect(self.sfc,(0,0,0),(x*100,y*100,100,100),0)
+                x +=1
+            else:
+                x=0
+                y+=1
+#追加
+
+
         # self.bgi_sfc = pg.image.load("ex05/fig/pg_bg.jpg")
         # self.bgi_rct = self.bgi_sfc.get_rect()
-        self.rct_lst = []
-        for y in range(len(maze_lst)):
-            rct_lst_sub = []
-            for x in range(len(maze_lst[y])):
-                bgi_sfc = pg.Surface((100, 100))
-                pg.draw.rect(bgi_sfc, color[maze_lst[y][x]], (0, 0, 100, 100))
-                rct = bgi_sfc.get_rect()
-                rct.center = (x*100+50, y*100+50)
+        #self.rct_lst = []
+        #for y in range(len(maze_lst)):
+            #rct_lst_sub = []
+            #for x in range(len(maze_lst[y])):
+                #bgi_sfc = pg.Surface((100, 100))
+                #pg.draw.rect(bgi_sfc, color[maze_lst[y][x]], (0, 0, 100, 100))
+                #rct = bgi_sfc.get_rect()
+                #rct.center = (x*100+50, y*100+50)
                 # self.bgi_rct = self.bgi_sfc.get_rect()
-                rct_lst_sub.append((bgi_sfc, rct))
+                #rct_lst_sub.append((bgi_sfc, rct))
     
-            self.rct_lst.append(rct_lst_sub)
+            #self.rct_lst.append(rct_lst_sub)
 
 
     def blit(self):
         # self.sfc.blit(self.bgi_sfc, self.bgi_rct)
-        print(len(self.rct_lst))
-        for sub in self.rct_lst:
-            for sfc_lst, rct_lst in sub:
-                # print(sfc_lst, rct_lst)
-                self.sfc.blit(sfc_lst,rct_lst)
-    
+        #print(len(self.rct_lst))
+        #for sub in self.rct_lst:
+        #    for sfc_lst, rct_lst in sub:
+        #        # print(sfc_lst, rct_lst)
+        self.sfc.blit(self.sfc, self.rct) 
+
+
 
 # こうかとんに関するクラス
 class Bird:
@@ -60,9 +100,10 @@ class Bird:
             if key_states[key]:
                 self.rct.centerx += delta[0]
                 self.rct.centery += delta[1]
+                
         self.blit(scr)
 
-
+"""
 # 迷路に関するクラス
 class Maze:
     # 迷路を作成する関数 第3回から引用
@@ -86,7 +127,7 @@ class Maze:
                 if x > 2: rnd = random.randint(0, 2)
                 else:     rnd = random.randint(0, 3)
                 self.maze_lst[y+YP[rnd]][x+XP[rnd]] = 1
-
+"""
 
     # 迷路を表示する関数 第3回から引用
     # def show_maze(self, maze_lst):
@@ -96,7 +137,7 @@ class Maze:
 
     #             pg.draw(x*100, y*100, x*100+100, y*100+100, 
     #                                     fill=color[maze_lst[y][x]])
-   
+
 
 # 道に落ちている食べ物に関するクラス
 class Food:
@@ -126,11 +167,11 @@ class Food:
 
 
 def main():
-    maze = Maze(16,9)
+    #maze = Maze(16,9)
 
-    scr = Screen("Pacton", (1600, 900), maze.maze_lst)
+    scr = Screen("Pacton", (1600, 900))
 
-    kkt = Bird("C:/Users/C0B21013/Documents/ProjExD2022/ProjExd-1/fig/6.png", 2.0, (900, 400))
+    kkt = Bird("C:/Users/C0B21013/Documents/ProjExD2022/ProjExd-1/fig/6.png", 2.0, (800, 400))
     # food_lst = copy.deepcopy(maze.maze_lst)
     # for y in range(len(maze.maze_lst)):
     #     for x in range(len(maze.maze_lst[y])):
@@ -145,6 +186,7 @@ def main():
     
     clock = pg.time.Clock()
     while True:
+        scr.map_draw(MAP)
         scr.blit() # 背景の作成
         kkt.update(scr)
         # for y in range(len(food_lst)):
