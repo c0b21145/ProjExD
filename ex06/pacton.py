@@ -4,9 +4,9 @@ import random
 from random import randint #加藤結衣
 import copy
 
-#追加1
+#ここから飯田優太
 WINDOW = (1600, 900)
-MAP=[ #ステージ通路設定 １は壁０は通路
+MAP=[ #ステージ通路設定 １は壁、０は通路、２はエサ
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,2,2,2,2,2,2,0,0,2,2,2,2,2,2,1],
     [1,2,1,1,1,1,1,0,0,1,1,1,1,1,2,1],
@@ -17,10 +17,10 @@ MAP=[ #ステージ通路設定 １は壁０は通路
     [1,2,2,2,2,2,2,0,0,2,2,2,2,2,2,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
-#追加1
+#ここまで飯田優太
 
 
-# スクリーンに関するクラス　追加
+# スクリーンに関するクラス
 class Screen:
     def __init__(self, title, xytpl):
         #color = ["white", "gray"]
@@ -28,7 +28,8 @@ class Screen:
         pg.display.set_caption(title)
         self.sfc = pg.display.set_mode(xytpl)
         self.rct = self.sfc.get_rect()
-#追加
+#ここから飯田優太
+#壁作成
     def map_draw(self,map):
         x=0
         y=0
@@ -46,7 +47,8 @@ class Screen:
             else:
                 x=0
                 y+=1
-#追加
+#ここまで飯田優太
+
         # self.bgi_sfc = pg.image.load("ex05/fig/pg_bg.jpg")
         # self.bgi_rct = self.bgi_sfc.get_rect()
         #self.rct_lst = []
@@ -75,6 +77,24 @@ class Screen:
         #     for sfc_lst, rct_lst in sub:
         #         # print(sfc_lst, rct_lst)
         #         self.sfc.blit(sfc_lst,rct_lst)
+
+
+class Item:#金井
+#アイテムに関するクラス
+
+    def __init__(self, colour, radius,  scr):
+        self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
+        self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
+        pg.draw.circle(self.sfc, colour, (radius, radius), radius) # アイテム用の円を描く
+        self.rct = self.sfc.get_rect()
+        self.rct.centerx = randint(200, scr.rct.width-200)
+        self.rct.centery = randint(200, scr.rct.height-200)
+        self.on = True
+
+    #アイテムを貼り付けるインスタンスメソッド
+    def blit(self, scr):
+        scr.sfc.blit(self.sfc, self.rct)
+
     
 #ここから加藤結衣    
 # ドット作成クラス
@@ -100,7 +120,6 @@ class Eat:
         pg.draw.circle(dot.sfc, color, (5, 5), 5)
         # ドットの色を黒にして、食べたようにみせる
 #ここまで加藤結衣
-
 
 # こうかとんに関するクラス
 class Bird:
@@ -230,6 +249,8 @@ def main():
     # for y in range(len(food_lst)):
     #     for x in range(len(food_lst[y])):
     #         print(food_lst[y][x].flag)
+
+    item = Item((255, 255, 0), 10, scr)#金井
     
     #ここから加藤結衣
     #赤色のドットを作成
@@ -248,7 +269,7 @@ def main():
 
     clock = pg.time.Clock()
     while True:
-        scr.map_draw(MAP)
+        scr.map_draw(MAP) #迷路生成 飯田優太
         scr.blit() # 背景の作成
         kkt.update(scr)
         # for y in range(len(food_lst)):
@@ -258,6 +279,14 @@ def main():
         for event in pg.event.get(): # 練習2
             if event.type == pg.QUIT:
                 return
+
+        if item.on:#金井
+            #アイテムが回収されていないなら描画する
+            item.blit(scr)
+
+        if kkt.rct.colliderect(item.rct):#金井
+            #アイテムを回収する機能
+            item = Item((255, 255, 0), 10, scr)
 
         #ここから加藤結衣
         #ドットを作成、スコアを表示
